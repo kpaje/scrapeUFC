@@ -9,7 +9,9 @@ const {
 function app(pagesToScrape) {
   return new Promise(async (resolve, reject) => {
     try {
+      // open the browser
       const browser = await puppeteer.launch();
+      // open a new page
       const page = await browser.newPage();
       let currentPage = 1;
       let urls = [];
@@ -17,10 +19,11 @@ function app(pagesToScrape) {
 
       verifyPages(pagesToScrape);
       requestPage(page);
+      // enter url in page
       awaitPageURL(page, site);
+      await page.waitForSelector("span.c-listing-athlete__name");
 
       while (currentPage <= pagesToScrape) {
-        await page.waitForSelector("a.e-button--black ");
         let newUrls = await page.evaluate(() => {
           let results = [];
           let items = document.querySelectorAll("a.e-button--black ");
@@ -28,12 +31,18 @@ function app(pagesToScrape) {
             results.push({
               url: item.getAttribute("href"),
               text: item.innerText,
+              name: name.innerText,
             });
           });
+
           return results;
         });
         urls = urls.concat(newUrls);
-        clickLinkSelector(currentPage, pagesToScrape, "a.e-button--black ");
+        clickLinkSelector(
+          currentPage,
+          pagesToScrape,
+          "span.c-listing-athlete__name"
+        );
         currentPage++;
       }
       browser.close();
