@@ -13,27 +13,30 @@ function app(pagesToScrape) {
       const page = await browser.newPage();
       let currentPage = 1;
       let urls = [];
-      let site = "https://news.ycombinator.com/";
+      let site = "https://www.ufc.com/athletes/all";
 
       verifyPages(pagesToScrape);
       requestPage(page);
       awaitPageURL(page, site);
 
       while (currentPage <= pagesToScrape) {
-        await page.waitForSelector("a.storylink");
+        await page.waitForSelector("span.c-listing-athlete__name");
         let newUrls = await page.evaluate(() => {
           let results = [];
-          let items = document.querySelectorAll("a.storylink");
+          let items = document.querySelectorAll("span.c-listing-athlete__name");
           items.forEach((item) => {
             results.push({
-              url: item.getAttribute("href"),
               text: item.innerText,
             });
           });
           return results;
         });
         urls = urls.concat(newUrls);
-        clickLinkSelector(currentPage, pagesToScrape, "a.storylink");
+        clickLinkSelector(
+          currentPage,
+          pagesToScrape,
+          "span.c-listing-athlete__name"
+        );
         currentPage++;
       }
       browser.close();

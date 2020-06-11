@@ -1,9 +1,9 @@
-async function awaitMoreSelectors(currentPage, pagesToScrape) {
+async function clickLinkSelector(currentPage, pagesToScrape, selector) {
   if (currentPage < pagesToScrape) {
     await Promise.all([
-      await page.waitForSelector("a.morelink"),
-      await page.click("a.morelink"),
-      await page.waitForSelector("a.storylink"),
+      await page.waitForSelector(selector),
+      await page.click(selector),
+      await page.waitForSelector(selector),
     ]);
   }
 }
@@ -30,7 +30,7 @@ async function awaitPageURL(page, site) {
 }
 
 module.exports = {
-  awaitMoreSelectors,
+  clickLinkSelector,
   verifyPages,
   requestPage,
   awaitPageURL,
