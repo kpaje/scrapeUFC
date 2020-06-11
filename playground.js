@@ -21,13 +21,16 @@ const success = chalk.keyword("green");
         `div.c-listing-athlete-flipcard__text__back`
       );
       var name = document.querySelectorAll(`span.c-listing-athlete__name`);
-
+      let record = document.querySelectorAll(`span.c-listing-athlete__record`);
+      let weightclass = document.querySelectorAll(`div.field__item`);
       let nickname = document.querySelectorAll(`div.field__item`);
       var results = [];
       for (var i = 0; i < titleNodeList.length; i++) {
         results[i] = {
           name: name[i].innerText,
           nickname: nickname[i].innerText,
+          record: record[i].innerText,
+          weightclass: weightclass[i].innerText,
         };
       }
       return results;
