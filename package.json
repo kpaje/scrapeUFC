@@ -1,0 +1,24 @@
+{
+  "name": "scrapeufc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpaje/scrapeUFC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kpaje/scrapeUFC/issues"
+  },
+  "homepage": "https://github.com/kpaje/scrapeUFC#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "puppeteer": "^3.3.0"
+  }
+}
