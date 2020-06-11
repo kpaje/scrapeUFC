@@ -35,19 +35,6 @@ async function awaitPageURL(page) {
 	await page.goto("https://news.ycombinator.com/");
 }
 
-function res() {
-	let results = [];
-	let items = document.querySelectorAll("a.storylink");
-
-	items.forEach((item) => {
-		results.push({
-			url: item.getAttribute("href"),
-			text: item.innerText,
-		});
-	});
-	return results;
-}
-
 function app(pagesToScrape) {
 	return new Promise(async (resolve, reject) => {
 		try {
