@@ -20,12 +20,14 @@ const success = chalk.keyword("green");
       var titleNodeList = document.querySelectorAll(
         `div.c-listing-athlete-flipcard__text__back`
       );
-      var athleteLink = document.querySelectorAll(`a.e-button--black `);
+      var name = document.querySelectorAll(`span.c-listing-athlete__name`);
+
+      let nickname = document.querySelectorAll(`div.field__item`);
       var results = [];
       for (var i = 0; i < titleNodeList.length; i++) {
         results[i] = {
-          name: titleNodeList[i].innerText,
-          url: athleteLink.getAttribute("href"),
+          name: name[i].innerText,
+          nickname: nickname[i].innerText,
         };
       }
       return results;
