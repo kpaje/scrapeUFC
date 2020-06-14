@@ -16,6 +16,7 @@ function verifyPages(pagesToScrape) {
 
 async function requestPage(page) {
   await page.setRequestInterception(true);
+
   page.on("request", (request) => {
     if (request.resourceType() === "document") {
       request.continue();

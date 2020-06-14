@@ -16,21 +16,32 @@ function app(pagesToScrape) {
       let currentPage = 1;
       let urls = [];
       let site = "https://www.ufc.com/athletes/all";
+      let nameSelector = "span.c-listing-athlete__name";
 
       verifyPages(pagesToScrape);
       requestPage(page);
       // enter url in page
       awaitPageURL(page, site);
-      await page.waitForSelector("span.c-listing-athlete__name");
+      await page.waitForSelector(nameSelector);
 
       while (currentPage <= pagesToScrape) {
         let newUrls = await page.evaluate(() => {
+          let atheleteProfileSelector = "a.e-button--black ";
+          let namesSelector = "span.c-listing-athlete__name";
           let results = [];
-          let items = document.querySelectorAll("a.e-button--black ");
-          items.forEach((item) => {
+
+          let athleteName = document.querySelectorAll(namesSelector);
+          let athleteProfiles = document.querySelectorAll(
+            atheleteProfileSelector
+          );
+
+          athleteProfiles.forEach((profile) => {
             results.push({
-              url: item.getAttribute("href"),
-              text: item.innerText,
+              url: profile.getAttribute("href"),
+            });
+          });
+          athleteName.forEach((name) => {
+            results.push({
               name: name.innerText,
             });
           });
@@ -38,11 +49,7 @@ function app(pagesToScrape) {
           return results;
         });
         urls = urls.concat(newUrls);
-        clickLinkSelector(
-          currentPage,
-          pagesToScrape,
-          "span.c-listing-athlete__name"
-        );
+        clickLinkSelector(currentPage, pagesToScrape, nameSelector);
         currentPage++;
       }
       browser.close();
