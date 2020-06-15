@@ -30,6 +30,29 @@ async function awaitPageURL(page, site) {
   await page.goto(site);
 }
 
+// function athleteObject(
+//   results,
+//   athleteProfiles,
+//   athleteNames,
+//   nicknames,
+//   athleteProfiles,
+//   records,
+//   weightclasses,
+//   socialProfiles
+// ) {
+//   for (var i = 0; i < athleteProfiles.length; i++) {
+//     results[i] = {
+//       name: athleteNames[i].innerText,
+//       nickname: nicknames[i].innerText,
+//       profile: athleteProfiles[i].getAttribute("href"),
+//       record: records[i].innerText,
+//       weightclass: weightclasses[i].innerText,
+//       socialProfile: socialProfiles[i].getAttribute("href"),
+//     };
+//   }
+//   return results;
+// }
+
 module.exports = {
   clickLinkSelector,
   verifyPages,

@@ -27,16 +27,32 @@ function app(pagesToScrape) {
       while (currentPage <= pagesToScrape) {
         let newUrls = await page.evaluate(() => {
           let athleteProfiles = document.querySelectorAll("a.e-button--black ");
-          let namesSelector = "span.c-listing-athlete__name";
-          let athleteNames = document.querySelectorAll(namesSelector);
+          let athleteNames = document.querySelectorAll(
+            "span.c-listing-athlete__name"
+          );
+          let weightclasses = document.querySelectorAll(
+            "span.c-listing-athlete__title"
+          );
+          let records = document.querySelectorAll(
+            "span.c-listing-athlete__record"
+          );
+          let nicknames = document.querySelectorAll(
+            "span.c-listing-athlete__nickname"
+          );
+          let socialProfiles = document.querySelectorAll(
+            "a.c-listing-athlete-flipcard__social-link"
+          );
+
           let results = [];
 
           for (var i = 0; i < athleteProfiles.length; i++) {
             results[i] = {
               name: athleteNames[i].innerText,
+              nickname: nicknames[i].innerText,
               profile: athleteProfiles[i].getAttribute("href"),
-              // record: record[i].innerText,
-              // weightclass: weightclass[i].innerText,
+              record: records[i].innerText,
+              weightclass: weightclasses[i].innerText,
+              socialProfile: socialProfiles[i].getAttribute("href"),
             };
           }
 
