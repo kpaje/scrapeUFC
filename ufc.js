@@ -16,40 +16,34 @@ function app(pagesToScrape) {
       let currentPage = 1;
       let urls = [];
       let site = "https://www.ufc.com/athletes/all";
-      let nameSelector = "span.c-listing-athlete__name";
+      let selector = "span.c-listing-athlete__name";
 
       verifyPages(pagesToScrape);
       requestPage(page);
       // enter url in page
       awaitPageURL(page, site);
-      await page.waitForSelector(nameSelector);
+      await page.waitForSelector(selector);
 
       while (currentPage <= pagesToScrape) {
         let newUrls = await page.evaluate(() => {
-          let atheleteProfileSelector = "a.e-button--black ";
+          let athleteProfiles = document.querySelectorAll("a.e-button--black ");
           let namesSelector = "span.c-listing-athlete__name";
+          let athleteNames = document.querySelectorAll(namesSelector);
           let results = [];
 
-          let athleteName = document.querySelectorAll(namesSelector);
-          let athleteProfiles = document.querySelectorAll(
-            atheleteProfileSelector
-          );
-
-          athleteProfiles.forEach((profile) => {
-            results.push({
-              url: profile.getAttribute("href"),
-            });
-          });
-          athleteName.forEach((name) => {
-            results.push({
-              name: name.innerText,
-            });
-          });
+          for (var i = 0; i < athleteProfiles.length; i++) {
+            results[i] = {
+              name: athleteNames[i].innerText,
+              profile: athleteProfiles[i].getAttribute("href"),
+              // record: record[i].innerText,
+              // weightclass: weightclass[i].innerText,
+            };
+          }
 
           return results;
         });
         urls = urls.concat(newUrls);
-        clickLinkSelector(currentPage, pagesToScrape, nameSelector);
+        clickLinkSelector(currentPage, pagesToScrape, selector);
         currentPage++;
       }
       browser.close();
