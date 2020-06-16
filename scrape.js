@@ -30,27 +30,6 @@ async function awaitPageURL(page, site) {
 	await page.goto(site);
 }
 
-// async function athleteObject(
-// 	athleteNickname,
-// 	athleteStatus,
-// 	athleteHometown,
-// 	athletePhysicalStats,
-// 	athleteWins,
-// 	athleteStrikingAccuracy,
-// 	athleteStrikesLanded
-// ) {
-// 	let results = {
-// 		nickname: athleteNickname[0].innerText,
-// 		status: athleteStatus[0].innerText,
-// 		hometown: athleteHometown[0].innerText,
-// 		physical: athletePhysicalStats[0].innerText,
-// 		wins: athleteWins[0].innerText,
-// 		strikingAccuracy: athleteStrikingAccuracy[0].innerText,
-// 		strikesLanded: athleteStrikesLanded[0].innerText,
-// 	};
-// 	return await results;
-// }
-
 module.exports = {
 	clickLinkSelector,
 	verifyPages,

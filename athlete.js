@@ -5,7 +5,7 @@ const {
 	requestPage,
 	awaitPageURL,
 } = require("./scrape.js");
-const { selectors } = require("./selectorQueries");
+const { selectors } = require("./selectors");
 let currentPage = 1;
 let atheleteObject = [];
 let site = "https://www.ufc.com/athlete/israel-adesanya";
@@ -38,17 +38,22 @@ function app(pagesToScrape) {
 						let athleteStrikesLanded = document.querySelectorAll(
 							selectors.strikesLanded
 						);
-						let results = [];
+						let results = { profile: {}, record: {}, striking: {} };
 
-						results = {
+						Object.assign(results.profile, {
 							nickname: athleteNickname[0].innerText,
 							status: athleteStatus[0].innerText,
 							hometown: athleteHometown[0].innerText,
 							physical: athletePhysicalStats[0].innerText,
+						});
+						Object.assign(results.record, {
 							wins: athleteWins[0].innerText,
+						});
+						Object.assign(results.striking, {
 							strikingAccuracy: athleteStrikingAccuracy[0].innerText,
-							strikesLanded: athleteStrikesLanded[0].innerText,
-						};
+							athleteStrikesLanded: athleteStrikesLanded[0].innerText,
+						});
+
 						return results;
 					},
 					{ selectors }
