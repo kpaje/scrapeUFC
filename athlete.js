@@ -27,24 +27,52 @@ function app(pagesToScrape) {
 
       while (currentPage <= pagesToScrape) {
         let newUrls = await page.evaluate(() => {
-          let athleteProfile = document.querySelectorAll(
-            "div.c-hero--full__container"
+          //   let athleteProfile = document.querySelectorAll(
+          //     "div.c-hero--full__headline-prefix"
+          //   );
+          let athleteWins = document.querySelectorAll(
+            "div.c-record__promoted-figure"
           );
-          let athleteName = document.querySelectorAll(
-            "div.c-hero--full__headline is-large-text"
+          let athleteStrikingAccuracy = document.querySelectorAll(
+            "div.e-chart-circle__wrapper"
           );
+          let athleteStrikesLanded = document.querySelectorAll(
+            "dd.c-overlap__stats-value"
+          );
+          //   let athleteStrikesAttempted = document.querySelectorAll(
+          //     "dd.c-overlap__stats-value"
+          //   );
           let athleteNickname = document.querySelectorAll(
             "div.c-hero--full__headline-prefix"
+          );
+          let athleteStatus = document.querySelectorAll("div.c-bio__row--1col");
+          let athleteHometown = document.querySelectorAll(
+            "div.c-bio__row--2col"
+          );
+          let athletePhysicalStats = document.querySelectorAll(
+            "div.c-bio__row--3col"
           );
 
           let results = [];
 
-          for (var i = 0; i < athleteProfile.length; i++) {
-            results[i] = {
-              //   name: athleteName[i].innerText,
-              nickname: athleteNickname[i].innerText,
-            };
-          }
+          results = {
+            nickname: athleteNickname[0].innerText,
+            status: athleteStatus[0].innerText,
+            hometown: athleteHometown[0].innerText,
+            physical: athletePhysicalStats[0].innerText,
+            wins: athleteWins[0].innerText,
+            strikingAccuracy: athleteStrikingAccuracy[0].innerText,
+            strikesLanded: athleteStrikesLanded[0].innerText,
+            // strikesAttempted: athleteStrikesAttempted[0].innerText,
+            strikesLanded: athleteStrikesLanded[0].innerText,
+          };
+
+          //   for (var i = 0; i < athleteProfile.length; i++) {
+          //     results[i] = {
+          //       //   name: athleteName[i].innerText,
+          //       nickname: athleteNickname[i].innerText,
+          //     };
+          //   }
 
           return results;
         });
