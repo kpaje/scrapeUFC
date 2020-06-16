@@ -1,11 +1,21 @@
-const selectorQuery = {
-  athleteProfiles: "a.e-button--black ",
-  athleteNames: "span.c-listing-athlete__name",
-  weightclasses: "span.c-listing-athlete__title",
-  records: "span.c-listing-athlete__record",
-  nicknames: "span.c-listing-athlete__nickname",
+let nickname = "div.c-hero--full__headline-prefix";
+let status = "div.c-bio__row--1col";
+let hometown = "div.c-bio__row--2col";
+let physicalStats = "div.c-bio__row--3col";
+let wins = "div.c-record__promoted-figure";
+let strikingAccuracy = "div.e-chart-circle__wrapper";
+let strikesLanded = "dd.c-overlap__stats-value";
+
+const selectors = {
+	nickname,
+	status,
+	hometown,
+	physicalStats,
+	wins,
+	strikingAccuracy,
+	strikesLanded,
 };
 
 module.exports = {
-  selectorQuery,
+	selectors,
 };
