@@ -17,7 +17,7 @@ function app(pagesToScrape) {
       let urls = [];
       let site = "https://www.ufc.com/athlete/israel-adesanya";
       //   let selector = "span.c-listing-athlete__name";
-      let selector = "div.c-hero--full__content aos-init aos-animate";
+      let selector = "div.c-hero--full__container";
 
       verifyPages(pagesToScrape);
       requestPage(page);
@@ -27,32 +27,22 @@ function app(pagesToScrape) {
 
       while (currentPage <= pagesToScrape) {
         let newUrls = await page.evaluate(() => {
-          let athleteProfile = document.querySelectorAll("div.c-hero__header");
-          let athleteName = document.querySelectorAll(
-            "div.field field-name-nickname"
+          let athleteProfile = document.querySelectorAll(
+            "div.c-hero--full__container"
           );
-          //   let weightclasses = document.querySelectorAll(
-          //     "span.c-listing-athlete__title"
-          //   );
-          //   let records = document.querySelectorAll(
-          //     "span.c-listing-athlete__record"
-          //   );
-          //   let nicknames = document.querySelectorAll(
-          //     "span.c-listing-athlete__nickname"
-          //   );
-          //   let socialProfiles = document.querySelectorAll(
-          //     "a.c-listing-athlete-flipcard__social-link"
-          //   );
+          let athleteName = document.querySelectorAll(
+            "div.c-hero--full__headline is-large-text"
+          );
+          let athleteNickname = document.querySelectorAll(
+            "div.c-hero--full__headline-prefix"
+          );
+
           let results = [];
 
           for (var i = 0; i < athleteProfile.length; i++) {
             results[i] = {
-              name: athleteName[i].innerText,
-              //   nickname: nicknames[i].innerText,
-              //   profile: athleteProfiles[i].getAttribute("href"),
-              //   record: records[i].innerText,
-              //   weightclass: weightclasses[i].innerText,
-              //   socialProfile: socialProfiles[i].getAttribute("href"),
+              //   name: athleteName[i].innerText,
+              nickname: athleteNickname[i].innerText,
             };
           }
 
