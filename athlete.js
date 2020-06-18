@@ -26,10 +26,9 @@ function app(pagesToScrape) {
       while (currentPage <= pagesToScrape) {
         //inject functions
         await page.addScriptTag({
-          content: `${profile} ${record} ${striking}`,
+          content: ` ${profile} ${record} ${striking}`,
         });
         //end inject functions
-        await page.evaluate(() => {});
         let athleteProfile = await page.evaluate(
           ({ selectors }) => {
             let athleteNickname = document.querySelectorAll(selectors.nickname);

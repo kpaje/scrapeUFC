@@ -12,11 +12,13 @@ function profile(
     physical: athletePhysicalStats[0].innerText,
   });
 }
+
 function record(results, athleteWins) {
   Object.assign(results.record, {
     wins: athleteWins[0].innerText,
   });
 }
+
 function striking(results, athleteStrikingAccuracy, athleteStrikesLanded) {
   Object.assign(results.striking, {
     strikingAccuracy: athleteStrikingAccuracy[0].innerText,
