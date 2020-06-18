@@ -1,4 +1,4 @@
-module.exports = class Athlete {
+class Athlete {
 	constructor(
 		athleteNickname,
 		athleteStatus,
@@ -31,4 +31,6 @@ module.exports = class Athlete {
 
 		return results;
 	}
-};
+}
+
+module.exports = Athlete;
