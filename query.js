@@ -1,11 +1,17 @@
 const { Athlete } = require("./class");
+const { selectors } = require("./selectors");
 
 // INDIVIDUAL ATHLETE
 let site = "https://www.ufc.com/athlete/israel-adesanya";
 let mainSelector = "div.c-hero--full__container";
 let pagesToScrape = 1;
 
-var createAdesanya = new Athlete(pagesToScrape, site, mainSelector).scrape();
+var createAdesanya = new Athlete(
+	selectors.individual,
+	pagesToScrape,
+	site,
+	mainSelector
+).scrape();
 createAdesanya;
 
 //ROSTER

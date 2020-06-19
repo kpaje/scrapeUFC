@@ -5,10 +5,10 @@ const {
 	requestPage,
 	awaitPageURL,
 } = require("./helpers.js");
-const { selectors } = require("./selectors");
 
 class Athlete {
-	constructor(pagesToScrape, site, mainSelector) {
+	constructor(selectors, pagesToScrape, site, mainSelector) {
+		this.selectors = selectors;
 		this.pagesToScrape = pagesToScrape;
 		this.site = site;
 		this.mainSelector = mainSelector;
@@ -26,6 +26,7 @@ class Athlete {
 				requestPage(page);
 				awaitPageURL(page, this.site);
 				await page.waitForSelector(this.mainSelector);
+				let selectors = this.selectors;
 
 				while (currentPage <= this.pagesToScrape) {
 					let athleteProfile = await page.evaluate(
