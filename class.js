@@ -14,7 +14,7 @@ class Athlete {
 		this.mainSelector = mainSelector;
 	}
 
-	scraper() {
+	scrape() {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const browser = await puppeteer.launch();
@@ -28,6 +28,9 @@ class Athlete {
 				await page.waitForSelector(this.mainSelector);
 
 				while (currentPage <= this.pagesToScrape) {
+					// await page.addScriptTag({
+					// 	content: `${this.property}`,
+					// });
 					let athleteProfile = await page.evaluate(
 						({ selectors }) => {
 							let results = {};
