@@ -4,7 +4,7 @@ const {
 	verifyPages,
 	requestPage,
 	awaitPageURL,
-} = require("./scrape.js");
+} = require("./helpers.js");
 const { selectors } = require("./selectors");
 
 class Athlete {
@@ -28,9 +28,6 @@ class Athlete {
 				await page.waitForSelector(this.mainSelector);
 
 				while (currentPage <= this.pagesToScrape) {
-					// await page.addScriptTag({
-					// 	content: `${this.property}`,
-					// });
 					let athleteProfile = await page.evaluate(
 						({ selectors }) => {
 							let results = {};

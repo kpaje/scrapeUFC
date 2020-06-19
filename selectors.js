@@ -14,7 +14,6 @@ let strikesLanded = "dd.c-overlap__stats-value";
 // let socialProfiles = "a.c-listing-athlete-flipcard__social-link";
 
 const selectors = {
-	// individual: {
 	nickname,
 	status,
 	hometown,
@@ -22,7 +21,6 @@ const selectors = {
 	wins,
 	strikingAccuracy,
 	strikesLanded,
-	// },
 
 	// athleteProfiles,
 	// NameProfile,
@@ -31,8 +29,6 @@ const selectors = {
 	// nicknamesProfile,
 	// socialProfiles,
 };
-
-// console.log(selectors.individual);
 
 module.exports = {
 	selectors,
