@@ -1,36 +1,58 @@
+const puppeteer = require("puppeteer");
+const {
+	clickLinkSelector,
+	verifyPages,
+	requestPage,
+	awaitPageURL,
+} = require("./scrape.js");
+const { selectors } = require("./selectors");
+let currentPage = 1;
+let site = "https://www.ufc.com/athlete/israel-adesanya";
+let mainSelector = "div.c-hero--full__container";
+
 class Athlete {
-	constructor(
-		athleteNickname,
-		athleteStatus,
-		athleteHometown,
-		athletePhysicalStats,
-		athleteWins,
-		athleteStrikingAccuracy,
-		athleteStrikesLanded
-	) {
-		this.athleteNickname = athleteNickname;
-		this.athleteStatus = athleteStatus;
-		this.athleteHometown = athleteHometown;
-		this.athletePhysicalStats = athletePhysicalStats;
-		this.athleteWins = athleteWins;
-		this.athleteStrikingAccuracy = athleteStrikingAccuracy;
-		this.athleteStrikesLanded = athleteStrikesLanded;
+	constructor(site, mainSelector) {
+		this.site = site;
+		this.mainSelector = mainSelector;
 	}
 
-	createProfile() {
-		let results = [];
-		results = {
-			nickname: this.athleteNickname[0].innerText,
-			status: this.athleteStatus[0].innerText,
-			hometown: this.athleteHometown[0].innerText,
-			physical: this.athletePhysicalStats[0].innerText,
-			wins: this.athleteWins[0].innerText,
-			strikingAccuracy: this.athleteStrikingAccuracy[0].innerText,
-			strikesLanded: this.athleteStrikesLanded[0].innerText,
-		};
+	scraper(pagesToScrape) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const browser = await puppeteer.launch();
+				const page = await browser.newPage();
+				let atheleteObject = [];
 
-		return results;
+				verifyPages(pagesToScrape);
+				requestPage(page);
+				awaitPageURL(page, site);
+				await page.waitForSelector(mainSelector);
+
+				while (currentPage <= pagesToScrape) {
+					let athleteProfile = await page.evaluate(
+						({ selectors }) => {
+							let results = {};
+
+							for (const names in selectors) {
+								const item = selectors[names];
+								Object.assign(results, {
+									[names]: document.querySelectorAll(item)[0].innerText,
+								});
+							}
+							return results;
+						},
+						{ selectors }
+					);
+					atheleteObject = atheleteObject.concat(athleteProfile);
+					clickLinkSelector(currentPage, pagesToScrape, mainSelector);
+					currentPage++;
+				}
+				browser.close();
+				return resolve(atheleteObject);
+			} catch (e) {
+				return reject(e);
+			}
+		});
 	}
+	// app(1).then(console.log).catch(console.error);
 }
-
-module.exports = Athlete;
