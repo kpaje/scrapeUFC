@@ -4,11 +4,9 @@ const { selectors } = require("./selectors");
 // INDIVIDUAL ATHLETE
 let site = "https://www.ufc.com/athlete/israel-adesanya";
 let mainSelector = "div.c-hero--full__container";
-let pagesToScrape = 1;
 
 var createAdesanya = new Athlete(
 	selectors.individual,
-	pagesToScrape,
 	site,
 	mainSelector
 ).scrape();
@@ -21,9 +19,8 @@ let athleteProfiles = "a.e-button--black ";
 
 var getRoster = new Athlete(
 	selectors.roster,
-	pagesToScrape,
 	siteRoster,
-	athleteProfiles
+	selectorRoster
 ).scrape();
 getRoster;
 
@@ -42,12 +39,11 @@ getRoster;
 let siteEvents = "https://www.ufc.com/events";
 let mainSelectorEvents = "div.details-wrapper";
 
-var getRoster = new Athlete(
-	selectors.event,
-	pagesToScrape,
+var getEvents = new Athlete(
+	selectors.events,
 	siteEvents,
 	mainSelectorEvents
 ).scrape();
-getRoster;
+getEvents;
 
 //   let date = "div.data-main-card";

@@ -33,7 +33,7 @@ const selectors = {
 		socialProfiles,
 	},
 
-	event: { headliners },
+	events: { headliners },
 };
 
 module.exports = {

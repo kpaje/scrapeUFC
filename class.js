@@ -7,9 +7,8 @@ const {
 } = require("./helpers.js");
 
 class Athlete {
-	constructor(selectors, pagesToScrape, site, mainSelector) {
+	constructor(selectors, site, mainSelector) {
 		this.selectors = selectors;
-		this.pagesToScrape = pagesToScrape;
 		this.site = site;
 		this.mainSelector = mainSelector;
 	}
@@ -21,14 +20,15 @@ class Athlete {
 				const page = await browser.newPage();
 				let atheleteObject = [];
 				let currentPage = 1;
+				let pagesToScrape = 1;
+				let selectors = this.selectors;
 
-				verifyPages(this.pagesToScrape);
+				verifyPages(pagesToScrape);
 				requestPage(page);
 				awaitPageURL(page, this.site);
 				await page.waitForSelector(this.mainSelector);
-				let selectors = this.selectors;
 
-				while (currentPage <= this.pagesToScrape) {
+				while (currentPage <= pagesToScrape) {
 					let athleteProfile = await page.evaluate(
 						({ selectors }) => {
 							let results = {};
@@ -44,7 +44,7 @@ class Athlete {
 						{ selectors }
 					);
 					atheleteObject = atheleteObject.concat(athleteProfile);
-					clickLinkSelector(currentPage, this.pagesToScrape, this.mainSelector);
+					clickLinkSelector(currentPage, pagesToScrape, this.mainSelector);
 					currentPage++;
 				}
 				browser.close();
