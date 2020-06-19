@@ -1,64 +1,60 @@
 const puppeteer = require("puppeteer");
 const {
-  clickLinkSelector,
-  verifyPages,
-  requestPage,
-  awaitPageURL,
+	clickLinkSelector,
+	verifyPages,
+	requestPage,
+	awaitPageURL,
 } = require("./scrape.js");
 const { selectors } = require("./selectors");
-let site = "https://www.ufc.com/athlete/israel-adesanya";
-let mainSelector = "div.c-hero--full__container";
 
 class Athlete {
-  constructor(site, mainSelector) {
-    this.site = site;
-    this.mainSelector = mainSelector;
-  }
+	constructor(pagesToScrape, site, mainSelector) {
+		this.pagesToScrape = pagesToScrape;
+		this.site = site;
+		this.mainSelector = mainSelector;
+	}
 
-  scraper(pagesToScrape) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        let atheleteObject = [];
-        let currentPage = 1;
+	scraper() {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const browser = await puppeteer.launch();
+				const page = await browser.newPage();
+				let atheleteObject = [];
+				let currentPage = 1;
 
-        verifyPages(pagesToScrape);
-        requestPage(page);
-        awaitPageURL(page, site);
-        await page.waitForSelector(mainSelector);
+				verifyPages(this.pagesToScrape);
+				requestPage(page);
+				awaitPageURL(page, this.site);
+				await page.waitForSelector(this.mainSelector);
 
-        while (currentPage <= pagesToScrape) {
-          let athleteProfile = await page.evaluate(
-            ({ selectors }) => {
-              let results = {};
+				while (currentPage <= this.pagesToScrape) {
+					let athleteProfile = await page.evaluate(
+						({ selectors }) => {
+							let results = {};
 
-              for (const names in selectors) {
-                const item = selectors[names];
-                Object.assign(results, {
-                  [names]: document.querySelectorAll(item)[0].innerText,
-                });
-              }
-              return results;
-            },
-            { selectors }
-          );
-          atheleteObject = atheleteObject.concat(athleteProfile);
-          clickLinkSelector(currentPage, pagesToScrape, mainSelector);
-          currentPage++;
-        }
-        browser.close();
-        return resolve(atheleteObject);
-      } catch (e) {
-        return reject(e);
-      }
-    });
+							for (const names in selectors) {
+								const item = selectors[names];
+								Object.assign(results, {
+									[names]: document.querySelectorAll(item)[0].innerText,
+								});
+							}
+							return results;
+						},
+						{ selectors }
+					);
+					atheleteObject = atheleteObject.concat(athleteProfile);
+					clickLinkSelector(currentPage, this.pagesToScrape, this.mainSelector);
+					currentPage++;
+				}
+				browser.close();
+				return resolve(atheleteObject);
+			} catch (e) {
+				return reject(e);
+			}
+		})
+			.then(console.log)
+			.catch(console.error);
+	}
 }
 
-run(){
-	scraper(1).then(console.log).catch(console.error);
-}
-run()	
-}
-
-module.exports = Athlete;
+module.exports = { Athlete };
