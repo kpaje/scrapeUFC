@@ -15,17 +15,17 @@ var createAdesanya = new Athlete(
 createAdesanya;
 
 //ROSTER
-// let siteRoster = "https://www.ufc.com/athletes/all";
-// let selectorRoster = "span.c-listing-athlete__name";
+let siteRoster = "https://www.ufc.com/athletes/all";
+let selectorRoster = "span.c-listing-athlete__name";
+let athleteProfiles = "a.e-button--black ";
 
-// let athleteProfiles = document.querySelectorAll("a.e-button--black ");
-// let athleteNames = document.querySelectorAll("span.c-listing-athlete__name");
-// let weightclasses = document.querySelectorAll("span.c-listing-athlete__title");
-// let records = document.querySelectorAll("span.c-listing-athlete__record");
-// let nicknames = document.querySelectorAll("span.c-listing-athlete__nickname");
-// let socialProfiles = document.querySelectorAll(
-// 	"a.c-listing-athlete-flipcard__social-link"
-// );
+var getRoster = new Athlete(
+	selectors.roster,
+	pagesToScrape,
+	siteRoster,
+	athleteProfiles
+).scrape();
+getRoster;
 
 // for (var i = 0; i < athleteProfiles.length; i++) {
 //     results[i] = {
@@ -39,8 +39,15 @@ createAdesanya;
 //   }
 
 //EVENTS
-// let siteEvents = "https://www.ufc.com/events";
-// let mainSelectorEvents = "div.details-wrapper";
+let siteEvents = "https://www.ufc.com/events";
+let mainSelectorEvents = "div.details-wrapper";
 
-// let headliners = "h3.c-card-event--result__headline";
+var getRoster = new Athlete(
+	selectors.event,
+	pagesToScrape,
+	siteEvents,
+	mainSelectorEvents
+).scrape();
+getRoster;
+
 //   let date = "div.data-main-card";
