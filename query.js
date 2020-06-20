@@ -6,9 +6,9 @@ let site = "https://www.ufc.com/athlete/israel-adesanya";
 let mainSelector = "div.c-hero--full__container";
 
 var createAdesanya = new Athlete(
-	selectors.individual,
-	site,
-	mainSelector
+  selectors.individual,
+  site,
+  mainSelector
 ).scrape();
 createAdesanya;
 
@@ -18,9 +18,9 @@ let selectorRoster = "span.c-listing-athlete__name";
 let athleteProfiles = "a.e-button--black ";
 
 var getRoster = new Athlete(
-	selectors.roster,
-	siteRoster,
-	selectorRoster
+  selectors.roster,
+  siteRoster,
+  athleteProfiles
 ).scrape();
 getRoster;
 
@@ -36,14 +36,14 @@ getRoster;
 //   }
 
 //EVENTS
-let siteEvents = "https://www.ufc.com/events";
-let mainSelectorEvents = "div.details-wrapper";
+// let siteEvents = "https://www.ufc.com/events";
+// let mainSelectorEvents = "div.details-wrapper";
 
-var getEvents = new Athlete(
-	selectors.events,
-	siteEvents,
-	mainSelectorEvents
-).scrape();
-getEvents;
+// var getEvents = new Athlete(
+// 	selectors.events,
+// 	siteEvents,
+// 	mainSelectorEvents
+// ).scrape();
+// getEvents;
 
 //   let date = "div.data-main-card";
